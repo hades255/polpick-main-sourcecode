@@ -1,0 +1,84 @@
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+            <li class="nav-item me-auto">
+                <a class="navbar-brand" href="/dashboard">
+                    <span class="brand-logo">
+                        <img src="/images/polpick-logo.png" alt="logo">
+                    </span>
+                    <!-- <h2 class="brand-text"><%= project_name %></h2> -->
+                </a>
+            </li>
+            <li class="nav-item nav-toggle">
+                <!-- <a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
+                    <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+                    <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
+                </a> -->
+            </li>
+        </ul>
+    </div>
+    <!-- <div class="shadow-bottom"></div> -->
+    <br><br>
+    <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <li class="<%=(page_name == 'user-dashboard') ? 'active' : ''%> nav-item mt-top-5px">
+                <a class="d-flex align-items-center" href="/dashboard">
+                    <i data-feather="home"></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
+                </a>
+            </li>
+
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i></li>
+
+            <li class="<%=(page_name == 'user-management') ? 'active' : ''%> nav-item mt-top-5px">
+                <a class="d-flex align-items-center" href="/users/list">
+                    <i data-feather="users"></i>
+                    <span class="menu-title text-truncate" data-i18n="Users">Users</span>
+                </a>
+            </li>
+            <li class="<%=(page_name == 'bot-management') ? 'active' : ''%> nav-item mt-top-5px">
+                <a class="d-flex align-items-center" href="/bots/list">
+                    <i data-feather="gitlab"></i>
+                    <span class="menu-title text-truncate" data-i18n="Bots">Bots</span>
+                </a>
+            </li>
+            
+            <!-- <li class="<%=(page_name == 'user-management') ? 'active' : ''%> nav-item mt-top-5px">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather='layout'></i>
+                    <span class="menu-title text-truncate" data-i18n="Users Management">Users Management</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="<%=(page_name == 'user-management') ? 'active' : ''%>">
+                        <a class="d-flex align-items-center" href="/users/list">
+                            <i data-feather="users"></i>
+                            <span class="menu-item text-truncate" data-i18n="Users">Users</span>
+                        </a>
+                    </li>
+                    <li class="<%=(page_name == 'bot-management') ? 'active' : ''%>">
+                        <a class="d-flex align-items-center" href="/users/list">
+                            <i data-feather="gitlab"></i>
+                            <span class="menu-item text-truncate" data-i18n="Bots">Bots</span>
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+            
+            <li class="<%=(page_name == 'cms-management') ? 'active' : ''%> nav-item mt-top-5px">
+                <a class="d-flex align-items-center" href="/cms/list">
+                    <i data-feather='layout'></i>
+                    <span class="menu-title text-truncate" data-i18n="CMS Management">CMS Management</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="<%=(page_name == 'cms-management') ? 'active' : ''%>">
+                        <a class="d-flex align-items-center" href="/cms/list">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="General">General</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+services:
+
+  #React Nextjs Node Service
+
+  node:
+
+    image: webskittersdocker/node20:latest
+
+    container_name: politick-trading-chart-node20
+
+    restart: unless-stopped
+
+    working_dir: /home/wtsadmin/myapp
+
+    environment:
+
+      - NODE_ENV=production
+
+
+    volumes:
+
+      - ./:/home/wtsadmin/myapp
+
+    ports:
+
+      - "1763:1763"
+    command: >
+      sh -c "npm start"
+
+
+#Docker Networks
+
+networks:
+  default:
+    external:
+      name: webskitters
+
+
+

@@ -1,0 +1,72 @@
+<% layout('../../layouts/mainLayout') -%>
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- Dashboard Ecommerce Starts -->
+            <section id="dashboard-ecommerce">
+                <div class="row match-height">
+                    <!-- Statistics Section -->
+                    <!-- Start User Statistics -->
+                    <div class="col-12">
+                        <div class="card card-statistics">
+                            <div class="card-header">
+                                <h4 class="card-title">Statistics</h4>
+                                <div class="d-flex align-items-center">
+                                    <p class="card-text font-small-2 me-25 mb-0 calc-time-diff">Updated <%= moment().format() %></p>
+                                </div>
+                            </div>
+                            <div class="card-body statistics-body">
+                                <div class="row">
+                                    <div class="col-xl-4 col-sm-4 col-12 mb-2 mb-xl-0">
+                                        <a href="/users/list">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="users" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0"><%= utils.numFormatter(userStats.totalUserCount) %></h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Users</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-4 col-12 mb-2 mb-xl-0">
+                                        <a href="/newsletter/list">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="bookmark" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">
+                                                        <%= utils.numFormatter(userStats.totalBotCount) %>
+                                                    </h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Bots</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End User Statistics -->
+                    <!-- Statistics Section -->
+                </div>
+            </section>
+            <!-- Dashboard Ecommerce ends -->
+
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN: Page JS-->
+<!-- <script src="/js/pages/dashboard-ecommerce.js"></script> -->
+<!-- END: Page JS-->

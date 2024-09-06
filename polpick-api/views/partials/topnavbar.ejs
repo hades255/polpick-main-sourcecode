@@ -1,0 +1,53 @@
+<nav
+    class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-dark navbar-shadow container-xxl">
+    <div class="navbar-container d-flex content">
+        <div class="bookmark-wrapper d-flex align-items-center">
+            <ul class="nav navbar-nav d-xl-none">
+                <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <!-- <li class="nav-item d-none d-xl-block"><a class="nav-link nav-link-style light_dark" id="light_dark"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Toggle Light / Dark Mode"><i
+                            class="ficon" data-feather="moon"></i></a></li> -->
+            </ul>
+        </div>
+        <ul class="nav navbar-nav align-items-center ms-auto">
+            <!-- <li class="nav-item d-md-block d-xl-none d-lg-block"><a class="nav-link nav-link-style" id="light_dark_2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Toggle Light / Dark Mode"><i class="ficon" data-feather="moon"></i></a></li> -->
+            <li class="nav-item dropdown dropdown-user">
+                <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="user-nav d-sm-flex d-none">
+                        <span class="user-name fw-bolder">
+                            <%= user?.full_name?.trim() %>
+                        </span>
+                        <span class="user-status">
+                            <%= user.role.roleDisplayName %>
+                        </span>
+                    </div>
+                    <span class="avatar">
+                        <% if (!user.profile_image) { %>
+                            <div class="avatar bg-light-dark">
+                                <div class="avatar-content">
+                                    <%= user?.full_name?.trim().substr(0, 2) %></div>
+                        </div>
+                        <% } else { %>
+                        <img class="round" src="/uploads/user/<%= user.profile_image %>" alt="avatar" height="40" width="40">
+                        <% } %>
+                        <span class="avatar-status-online"></span>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+                    <a class="dropdown-item" href="/account">
+                        <i class="me-50" data-feather="settings"></i> 
+                        Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/logout">
+                        <i class="me-50" data-feather="power"></i> 
+                        Logout
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

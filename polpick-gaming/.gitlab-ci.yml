@@ -1,0 +1,12 @@
+dev-deployment:
+ variables:
+   GIT_STRATEGY: fetch
+ script:
+   - bash ~/gitlab/node20/node20-projectdeploy.sh
+ environment:
+     name: Development
+     url : https://polpick-game.dedicateddevelopers.us/
+ tags:
+   - node-docker4
+ only:
+   - dev

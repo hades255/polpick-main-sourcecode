@@ -1,0 +1,278 @@
+<% layout('../../layouts/mainLayout') -%>
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-start mb-0">
+                                <%= page_title %>
+                            </h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="/users/list">Users</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        <%= page_title %>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <section class="app-user-view-account">
+                    <div class="row">
+                        <!-- User Sidebar -->
+                        <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                            <!-- User Card -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="user-avatar-section">
+                                        <div class="d-flex align-items-center flex-column">
+                                            <% if (response.profile_image) {%>
+                                                <!-- <img class="img-fluid rounded mt-3 mb-2" src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" height="110" width="110" alt="User avatar" /> -->
+                                                <a href="/uploads/user/<%= response.profile_image %>"
+                                                    class="me-25">
+                                                    <img class="img-fluid rounded mt-3 mb-2"
+                                                        src="/uploads/user/<%= response.profile_image %>"
+                                                        height="110" width="110" alt="User avatar" />
+                                                </a>
+                                                <%} else {%>
+                                                    <% stateNum=Math.floor(Math.random() * 6) + 1;
+                                                        states=['success', 'danger' , 'warning' , 'info' , 'dark'
+                                                        , 'primary' , 'secondary' ]; $state=states[stateNum],
+                                                        $name=response['full_name'] ? response['full_name']
+                                                        : 'Anonymous User' , $initials=$name.match(/\b\w/g) || [];
+                                                        $initials=(($initials.shift() || '' ) + ($initials.pop() || ''
+                                                        )).toUpperCase();
+                                                        $output='<span class="avatar-content" style="height: 110px !important; width: 110px !important; font-size: 2.857rem !important;">'
+                                                        + $initials + '</span>' ; colorClass=' bg-light-' + $state + ' '
+                                                        ; $row_output='<div class="mt-3 mb-2 avatar-wrapper">'
+                                                        + '<div class="avatar ' + colorClass
+                                                        + ' me-1" style="cursor: default !important; height: 110px; width: 110px;">'
+                                                        + $output + '</div>' + '</div>' %>
+                                                        <%- $row_output %>
+                                                            <% } %>
+                                                                <div class="user-info text-center">
+                                                                    <h4>
+                                                                        <%= response.full_name %>
+                                                                    </h4>
+                                                                    <span class="badge bg-light-secondary">
+                                                                        <%= response.role.roleDisplayName %>
+                                                                    </span>
+                                                                </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4>
+                                    <div class="info-container">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25">Username:</span>
+                                                <span>
+                                                    <%= response.username ? response.username : 'N/A' %>
+                                                </span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25">Email:</span>
+                                                <span>
+                                                    <%= response.email ? response.email : 'N/A' %>
+                                                </span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25">Role:</span>
+                                                <span>
+                                                    <%= response.role.roleDisplayName %>
+                                                </span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25">Phone:</span>
+                                                <span>
+                                                    <%= response.phone ? '+' + response.country_code + ' ' + response.phone : 'N/A' %>
+                                                </span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25">Country:</span>
+                                                <span>
+                                                    < % = response.country?.trim() ? response.country : 'N/A' % >
+                                                </span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <% statusObj={ 'Banned' : { title: 'Banned' , class: 'badge-light-warning' }, 'Active' : { title: 'Active' ,
+                                                    class: 'badge-light-success' }, 'Inactive' : { title: 'Inactive' , class: 'badge-light-secondary' } };
+                                                    $status=response['status']; badge='<span class="badge userStatusUpdate cursor-pointer ' +
+                                                    statusObj[$status].class + '" text-capitalized data-type="users" data-status="' + $status + '" data-id="' +
+                                                    response['_id'] + '">' + statusObj[$status].title + '</span>' %>
+                                                    <span class="fw-bolder me-25">Status:</span>
+                                                    <%- badge %>
+                                            </li>
+                                        </ul>
+                                        <div class="d-flex justify-content-center align-items-center pt-2">
+                                            <a href="javascript:;" class="btn btn-primary me-1 mb-2"
+                                                data-bs-target="#editUser" data-bs-toggle="modal">
+                                                Edit
+                                            </a>
+                                            <a href="javascript:;" data-type="users" id="del-<%= response._id %>"
+                                                class="btn btn-outline-danger mb-2 suspend-user d-none">Remove</a>
+                                        </div>
+                                        <!-- <div class="d-flex justify-content-center align-items-center">
+                                        <a href="javascript:;" data-type="users" id="reset-<%= response._id %>" class="btn btn-warning me-1 mb-2 reset-user-password">Reset Password</a>
+                                    </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ User Sidebar -->
+
+                        <%- body %>
+                    </div>
+                </section>
+                <!-- Edit User Modal -->
+                <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
+                        <div class="modal-content">
+                            <div class="modal-header bg-transparent">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body pb-5 px-sm-5 pt-50">
+                                <div class="text-center mb-2">
+                                    <h1 class="mb-1">Edit User Information</h1>
+                                </div>
+                                <form id="editUserForm" class="row gy-1 pt-75" action="/users/update" method="POST"
+                                    enctype='multipart/form-data'>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="modalEditUserFirstName">Full Name</label><span style="color: red;">*</span>
+                                        <input type="text" id="modalEditUserFirstName" name="full_name"
+                                            class="form-control" placeholder="John Doe"
+                                            value="<%= response.full_name %>" data-msg="Please enter full name" />
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="modalEditUserEmail">Email:</label><span style="color: red;">*</span>
+                                        <input type="text" id="modalEditUserEmail" name="email" class="form-control"
+                                            value="<%= response.email %>" placeholder="example@domain.com" />
+                                    </div>
+
+                                    <!-- <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="country">Country:</label><span style="color: red;">*</span>
+                                        <select class="form-control select2 select2-custom-validate-country" name="country" id="country">
+                                            <option value="" disabled selected>Select country</option>
+                                            <% for(let country of countries) { %>
+                                                <option value="<%= country.name %>" <%= response.country == country.name ? 'selected' : '' %>> <%= country.name %> </option>
+                                            <% } %>
+                                        </select>
+                                    </div> -->
+                                    <!-- <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="state">State:</label><span style="color: red;">*</span>
+                                        <input type="text" id="state" name="state" class="form-control" placeholder="Please enter state" value="<%= response.state %>" />
+                                    </div> -->
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="address">Address:</label><span style="color: red;">*</span>
+                                        <input type="text" id="address" name="address" class="form-control" placeholder="Please enter address" value="<%= response.address %>" />
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="social_link">Social Media Link:</label><span style="color: red;">*</span>
+                                        <input type="text" id="social_link" name="social_link" placeholder="http://" class="form-control" value="<%= response.social_link %>" />
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <label class="form-label" for="full_number">Phone</label><br>
+                                        <div class="form-group">
+                                            <input type="text" id="full_number" class="form-control" placeholder="(609) 933-44-22" name="full_number"
+                                                onkeyup="verifyPhoneNumber(event)" value="<%= '+' + response.country_code + response.phone %>" />
+                                            <div id="phone_alert" class="alert alert-info" style="display: none;"></div>
+                                        </div>
+                                        <input type="hidden" name="phone" id="phone" value="<%= response.phone %>">
+                                        <input type="hidden" name="country_code" id="country_code" value="<%= response.country_code %>">
+                                    </div>
+                                    
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <a href="/uploads/user/<%= response?.profile_image %>" class="me-25">
+                                                <img onerror="this.onerror=null;this.src='/uploads/noImage.png';" src="/uploads/user/<%= response?.profile_image %>" id="image1" class="uploadedAvatar rounded me-50"
+                                                    alt="profile image" style="max-width: 100px; max-height: 100px;" />
+                                            </a>
+                                            <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75 form-label">Upload Profile Image</label>
+                                            <input type="file" onchange="previewImage()" name="profile_image" id="account-upload" hidden accept="image/*" />
+                                        </div>
+                                        <p class="mb-0">Upload image file only.</p>
+                                    </div>
+                                    <div class="col-12 text-center mt-2 pt-50">
+                                        <input type="hidden" name="id" value="<%= response._id %>">
+                                        <button type="submit" class="btn btn-primary me-1"
+                                            onclick="verifyPhoneNumber(event)">Submit</button>
+                                        <button type="reset" class="btn btn-outline-secondary d-none" data-bs-dismiss="modal"
+                                            aria-label="Close">
+                                            Discard
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <script>
+        function previewImage() {
+            image1.src = URL.createObjectURL(event.target.files[0]);
+        }
+        
+        const phone_info = document.querySelector("#phone_alert");
+        const phoneInputField = document.querySelector("#full_number");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            separateDialCode: true,
+            hiddenInput: "full_number",
+            preferredCountries: ["us", "co", "in", "de"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        if ($('#full_number').val()) {
+            let country = phoneInput.getSelectedCountryData();
+
+            if (country && country.dialCode) {
+                $('#country_code').val(country.dialCode);
+            }
+            const phoneNumber = phoneInput.getNumber();
+            if (phoneNumber) {
+                phone_info.style.display = "";
+                phone_info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+            } else {
+                phone_info.style.display = "none";
+            }
+        }
+
+        function verifyPhoneNumber(event) {
+            let country = phoneInput.getSelectedCountryData();
+            if (country && country.dialCode) {
+                $('#country_code').val(country.dialCode);
+            }
+            const phoneNumber = phoneInput.getNumber();
+            if (phoneNumber) {
+                phone_info.style.display = "";
+                phone_info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+            } else {
+                phone_info.style.display = "none";
+            }
+        }
+
+        $('#full_number').change(function() {
+            var phone_number_without_country_code = phoneInput.getNumber().replace('+' + phoneInput.getSelectedCountryData().dialCode, '')
+            $('#phone').val(phone_number_without_country_code);
+        })
+    </script>
+
+    <!-- BEGIN: Page JS-->
+    <script src="/js/pages/modal-edit-user.js"></script>
+    <script src="/js/pages/app-user-view.js"></script>
+    <!-- END: Page JS-->

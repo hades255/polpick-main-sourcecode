@@ -1,0 +1,12 @@
+dev-deployment:
+ variables:
+   GIT_STRATEGY: fetch
+ script:
+   - bash ~/gitlab/nestjs/nest-js-deploy-polpck.sh
+ environment:
+     name: Development
+     url : https://polpick-admin.dedicateddevelopers.us/
+ tags:
+   - node-docker3
+ only:
+   - development

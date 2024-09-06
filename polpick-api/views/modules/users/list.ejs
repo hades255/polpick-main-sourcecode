@@ -1,0 +1,211 @@
+<% layout('../../layouts/mainLayout') -%>
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- users list start -->
+                <section class="app-user-list">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.totalUserCount) %>
+                                        </h3>
+                                        <span>Total Users</span>
+                                    </div>
+                                    <div class="avatar bg-light-primary p-50" style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.recentUserCount) %>
+                                        </h3>
+                                        <span>Recent Users</span>
+                                    </div>
+                                    <div class="avatar bg-light-info p-50" style="cursor: default !important;"
+                                        style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user-plus" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.activeUserCount) %>
+                                        </h3>
+                                        <span>Active Users</span>
+                                    </div>
+                                    <div class="avatar bg-light-success p-50" style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user-check" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.bannedUserCount) %>
+                                        </h3>
+                                        <span>Banned Users</span>
+                                    </div>
+                                    <div class="avatar bg-light-warning p-50" style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user-x" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- list and filter start -->
+                    <div class="card">
+                        <div class="card-body border-bottom">
+                            <h4 class="card-title">
+                                <%= page_title %>
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-4 user_status">
+                                    <select id="StatusDropdown"
+                                        class="form-select text-capitalize mb-md-0 mb-2xx cursor-pointer">
+                                        <option value=""> View All Status </option>
+                                        <option value="Active"> Active </option>
+                                        <option value="Inactive"> Inactive </option>
+                                        <option value="Banned"> Banned </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-datatable table-responsive pt-0">
+                            <table class="user-list-table table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            <div class="form-check"> <input class="form-check-input" type="checkbox"
+                                                    value="" id="checkboxSelectAll" /><label class="form-check-label"
+                                                    for="checkboxSelectAll"></label></div>
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Joined On</th>
+                                        <th>Status</th> 
+                                        <th>Email Verified?</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!-- Modal to add new user starts-->
+                        <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
+                            <div class="modal-dialog">
+                                <form class="add-new-user modal-content pt-0" id="add-new-user" action="/users/store"
+                                    method="POST" enctype='multipart/form-data'>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close">×</button>
+                                    <div class="modal-header mb-1">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                                    </div>
+                                    <div class="modal-body flex-grow-1">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="basic-icon-default-fullname">Full
+                                                Name</label><span style="color: red;">*</span>
+                                            <input type="text" class="form-control dt-full-name"
+                                                id="basic-icon-default-fullname" placeholder="John Doe"
+                                                name="full_name" />
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label" for="basic-icon-default-email">Email</label><span
+                                                style="color: red;">*</span>
+                                            <input type="text" id="basic-icon-default-email"
+                                                class="form-control dt-email" placeholder="john.doe@example.com"
+                                                name="email" />
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label" for="basic-icon-default-password">Password</label><span style="color: red;">*</span>
+                                            <input type="password" id="basic-icon-default-password" class="form-control dt-password"
+                                                placeholder="Enter password" name="password" />
+                                            <div class="alert alert-warning mb-2" role="alert">
+                                                <h6 class="alert-heading">Ensure that these requirements are met</h6>
+                                                <div class="alert-body fw-normal">Minimum 8 characters long, uppercase, lowercase, number & symbol between:
+                                                    <b><i>#?!@$%^&*-</i></b></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label" for="basic-icon-default-contact">Phone</label><span style="color: red;">*</span>
+                                                <input type="text" id="phone" class="form-control"
+                                                    placeholder="(609) 933-44-22" name="phone"/>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label" for="basic-icon-default-contact">Phone</label><span style="color: red;">*</span>
+                                                <input type="text" id="phone" class="form-control"
+                                                    placeholder="(609) 933-44-22" name="phone"/>
+                                        </div>
+                                        <div id="phone_alert" class="alert alert-info" style="display: none;"></div>
+                                        <div class="mb-1">
+                                            <label class="form-label" for="country">Country</label><span style="color: red;">*</span>
+                                            <select class="form-control select2 select2-custom-validate-country" name="country" id="country">
+                                                <option value="" disabled selected>Select country</option>
+                                                <% for(let country of countries) { %>
+                                                    <option value="<%= country.isoCode %>"> <%= country.name %> </option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-1">
+                                            <!-- upload and reset button -->
+                                            <a href="/uploads/noImage.png" class="me-25">
+                                                <img src="/uploads/noImage.png" id="account-upload-img"
+                                                    class="uploadedAvatar rounded me-50" alt="profile image"
+                                                    style="max-width: 100px; max-height: 100px;" />
+                                            </a>
+                                            <label for="account-upload"
+                                                class="btn btn-sm btn-primary mb-75 me-75 form-label">Upload Profile
+                                                Image</label>
+                                            <input type="file" name="profile_image" id="account-upload" hidden
+                                                accept="image/*" />
+                                            <p class="mb-0">Upload image file only.</p>
+                                            <!--/ upload and reset button -->
+                                        </div>
+                                        <button type="submit" class="btn btn-primary me-1 data-submit"
+                                            onclick="verifyPhoneNumber(event)">Submit</button>
+                                        <button type="reset" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Modal to add new user Ends-->
+                    </div>
+                    <!-- list and filter end -->
+                </section>
+                <!-- users list ends -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <!-- BEGIN: Datatable JS-->
+    <script src="/js/datatables/app-user-list.js"></script>
+    <!-- END: Datatable JS-->

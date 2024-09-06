@@ -1,0 +1,149 @@
+<% layout('../../layouts/mainLayout') -%>
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- cms list start -->
+            <section class="app-user-list">
+                <!-- list and filter start -->
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">
+                                        <%= utils.numFormatter(stats.totalCount) %>
+                                    </h3>
+                                    <span>Total Newsletters</span>
+                                </div>
+                                <div class="avatar bg-light-primary p-50" style="cursor: default !important;">
+                                    <span class="avatar-content">
+                                        <i data-feather="bookmark" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">
+                                        <%= utils.numFormatter(stats.recentCount) %>
+                                    </h3>
+                                    <span>Recent Newsletters</span>
+                                </div>
+                                <div class="avatar bg-light-info p-50" style="cursor: default !important;"
+                                    style="cursor: default !important;">
+                                    <span class="avatar-content">
+                                        <i data-feather="bookmark" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">
+                                        <%= utils.numFormatter(stats.activeCount) %>
+                                    </h3>
+                                    <span>Active Newsletters</span>
+                                </div>
+                                <div class="avatar bg-light-success p-50" style="cursor: default !important;">
+                                    <span class="avatar-content">
+                                        <i data-feather="bookmark" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">
+                                        <%= utils.numFormatter(stats.inactiveCount) %>
+                                    </h3>
+                                    <span>Inactive Newsletters</span>
+                                </div>
+                                <div class="avatar bg-light-warning p-50" style="cursor: default !important;">
+                                    <span class="avatar-content">
+                                        <i data-feather="bookmark" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <h4 class="card-title"><%= page_title %></h4>
+                        <div class="row">
+                            <div class="col-md-4 user_status">
+                                <select id="StatusDropdown" class="form-select text-capitalize mb-md-0 mb-2xx cursor-pointer">
+                                    <option value=""> View All Status </option>
+                                    <option value="Active"> Active </option>
+                                    <option value="Inactive"> Inactive </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-datatable table-responsive pt-0">
+                        <table class="newsletter-list-table table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!-- Modal to add new cms starts-->
+                    <div class="modal modal-slide-in new-cms-modal fade" id="modals-slide-in">
+                        <div class="modal-dialog">
+                            <form class="add-new-cms modal-content pt-0" id="addNewsletterFrm" action="/newsletter/insert" method="POST" enctype='multipart/form-data'>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                                <div class="modal-header mb-1">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add Newsletter</h5>
+                                </div>
+                                <div class="modal-body flex-grow-1">
+                                    <div class="mb-1">
+                                        <label class="form-label" for="email">Email</label><span style="color: red;">*</span>
+                                        <input type="text" class="form-control dt-email" id="email" placeholder="Email" name="email" />
+                                    </div>
+
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <button type="submit" class="btn btn-primary me-1 data-submit" id="SubmitBtn">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Modal to add new cms Ends-->
+                </div>
+                <!-- list and filter end -->
+            </section>
+            <!-- cms list ends -->
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+<!-- BEGIN: Datatable JS-->
+<script src="/js/datatables/app-newsletter-list.js"></script>
+<!-- END: Datatable JS-->
+<script>
+    function previewImage() {
+        image1.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

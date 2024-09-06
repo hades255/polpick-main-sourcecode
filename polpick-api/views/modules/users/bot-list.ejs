@@ -1,0 +1,154 @@
+<% layout('../../layouts/mainLayout') -%>
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- users list start -->
+                <section class="app-user-list">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.totalBotCount) %>
+                                        </h3>
+                                        <span>Total Bots</span>
+                                    </div>
+                                    <div class="avatar bg-light-primary p-50" style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.recentBotCount) %>
+                                        </h3>
+                                        <span>Recent Bots</span>
+                                    </div>
+                                    <div class="avatar bg-light-info p-50" style="cursor: default !important;"
+                                        style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user-plus" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3 class="fw-bolder mb-75">
+                                            <%= utils.numFormatter(stats.activeBotCount) %>
+                                        </h3>
+                                        <span>Active Bots</span>
+                                    </div>
+                                    <div class="avatar bg-light-success p-50" style="cursor: default !important;">
+                                        <span class="avatar-content">
+                                            <i data-feather="user-check" class="font-medium-4"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- list and filter start -->
+                    <div class="card">
+                        <div class="card-body border-bottom">
+                            <h4 class="card-title">
+                                <%= page_title %>
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-4 user_status">
+                                    <select id="StatusDropdown"
+                                        class="form-select text-capitalize mb-md-0 mb-2xx cursor-pointer">
+                                        <option value=""> View All Status </option>
+                                        <option value="Active"> Active </option>
+                                        <option value="Inactive"> Inactive </option>
+                                        <option value="Banned"> Banned </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-datatable table-responsive pt-0">
+                            <table class="bot-list-table table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            <div class="form-check"> <input class="form-check-input" type="checkbox"
+                                                    value="" id="checkboxSelectAll" /><label class="form-check-label"
+                                                    for="checkboxSelectAll"></label></div>
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Added On</th>
+                                        <th>Status</th> 
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!-- Modal to add new user starts-->
+                        <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
+                            <div class="modal-dialog">
+                                <form class="add-new-user modal-content pt-0" id="add-new-user" action="/users/store"
+                                    method="POST" enctype='multipart/form-data'>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close">×</button>
+                                    <div class="modal-header mb-1">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Bot</h5>
+                                    </div>
+                                    <div class="modal-body flex-grow-1">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="basic-icon-default-fullname">Full
+                                                Name</label><span style="color: red;">*</span>
+                                            <input type="text" class="form-control dt-full-name"
+                                                id="basic-icon-default-fullname" placeholder="John Doe"
+                                                name="full_name" />
+                                        </div>
+                                        <div class="mb-1">
+                                            <!-- upload and reset button -->
+                                            <a href="/uploads/noImage.png" class="me-25">
+                                                <img src="/uploads/noImage.png" id="account-upload-img"
+                                                    class="uploadedAvatar rounded me-50" alt="profile image"
+                                                    style="max-width: 100px; max-height: 100px;" />
+                                            </a>
+                                            <label for="account-upload"
+                                                class="btn btn-sm btn-primary mb-75 me-75 form-label">Upload Profile
+                                                Image</label>
+                                            <input type="file" name="profile_image" id="account-upload" hidden
+                                                accept="image/*" />
+                                            <p class="mb-0">Upload image file only.</p>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary me-1 data-submit">Submit</button>
+                                        <button type="reset" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Modal to add new user Ends-->
+                    </div>
+                    <!-- list and filter end -->
+                </section>
+                <!-- users list ends -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <!-- BEGIN: Datatable JS-->
+    <script src="/js/datatables/app-bot-list.js"></script>
+    <!-- END: Datatable JS-->

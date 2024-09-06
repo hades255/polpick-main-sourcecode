@@ -1,0 +1,40 @@
+services:
+
+  #React Nextjs Node Service
+
+  node:
+
+    image: webskittersdocker/node20:latest
+
+    container_name: polpick-nestjs
+
+    restart: unless-stopped
+
+    working_dir: /home/wtsadmin/myapp
+
+    environment:
+
+      - NODE_ENV=development
+
+
+    volumes:
+
+      - ./:/home/wtsadmin/myapp
+
+    ports:
+
+      - "1747:1747"
+    command: >
+       sh -c "npm run build &&
+              npm run start:dev"
+
+
+#Docker Networks
+
+networks:
+  default:
+    external:
+      name: webskitters
+
+
+

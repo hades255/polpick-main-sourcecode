@@ -1,0 +1,16 @@
+.inner {
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    color: #fff;
+  }
+  a {
+    font-weight: 800;
+  }
+  > div {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,26 @@
+<% layout('../../layouts/mainLayout') -%>
+<link rel="stylesheet" type="text/css" href="/app-assets/css/pages/page-misc.css">
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- Not authorized-->
+            <div class="misc-wrapper">
+                <div class="misc-inner p-2 p-sm-3">
+                    <div class="w-100 text-center">
+                        <h2 class="mb-1">You are not authorized! 🔐</h2>
+                        <p class="mb-2">
+                            Please contact the Super Admin for the authorization as you do not have access to this page.
+                        </p><a class="btn btn-primary mb-1 btn-sm-block" href="javascript:void(0);" onclick="history.go(-1)">Back to Previous</a><img class="img-fluid" src="/app-assets/images/pages/not-authorized.svg" alt="Not authorized page" />
+                    </div>
+                </div>
+            </div>
+            <!-- / Not authorized-->
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
